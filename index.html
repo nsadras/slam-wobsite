@@ -250,8 +250,17 @@
             <h2 class="title text-center">Results</h2>            
             <div class="block">
             </div><!--//block-->
-            =======TODO(Nitin): Post video, add youtube embed, explain what's going on in all the windows====
-              ====TODO(Nitin): How well did your project work? What tasks did it perform?=====
+                <center>
+                    <iframe width="650" height="400" src="//www.youtube.com/embed/wASgk7cUkuI" frameborder="0" allowfullscreen></iframe>
+                </center>
+                <br>
+                <p>
+                    Here, you can see our robot mapping out two marker configurations - circular and linear.  The top right screen shows a visualization of the particle-filter algorithm, while the bottom left screen shows the Extended Kalman filter Slam algorithm.  The bottom right screen shows the view from the robot's on-board camera, as well as the homography image that is used for marker classification. It is clear from the algorithm visualizations that the EKF both converges more quickly and constructs a more accurate map than the particle filter. 
+                </p>
+
+                <p>
+                    As seen in the video, our robot was very succesful in mapping and localizing itself with respect to small, closely packed marker configurations.  In such maps, even if the robot is picked up and place somewhere else, it succesfully corrects the map after making a sufficient number of observations.  However, when we attempted to map out larger, more spread out configurations, the relative distances between marker ane the robot's position were off.  This is likely due to sensor drift over time, as well as error accumulating from our velocity calculations.
+                </p>
             </div><!--//docs-inner-->         
         </div><!--//container-->
     </section><!--//about-->
