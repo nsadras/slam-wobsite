@@ -94,12 +94,23 @@ pre code {
 .header {
   padding: 10px 0;
   background: #17baef;
+  opacity: 0.3;
   color: #fff;
   position: fixed;
   width: 100%;
 }
+.header:hover {
+  padding: 10px 0;
+  background: #17baef;
+  opacity: 0.7;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+}
+
 .header.navbar-fixed-top {
   background: #fff;
+  opacity: 1.0;
   z-index: 9999;
   -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
@@ -182,8 +193,11 @@ pre code {
 /* ======= Promo Section ======= */
 .promo {
   background: #17baef;
+  background: url('../images/robot_blur.jpg');
+  background-size: 100% 100%;
   color: #fff;
   padding-top: 150px;
+  height:100vh;
 }
 .promo .title {
   font-size: 98px;
@@ -207,13 +221,13 @@ pre code {
 .promo .meta {
   margin-top: 120px;
   margin-bottom: 30px;
-  color: #0a7396;
+  color: rgb(100,255,255);
 }
 .promo .meta li {
   margin-right: 15px;
 }
 .promo .meta a {
-  color: #0a7396;
+  color: rgb(100,255,255);
 }
 .promo .meta a:hover {
   color: #074f66;

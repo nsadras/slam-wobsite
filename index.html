@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">    
-    <link rel="shortcut icon" href="favicon.ico">  
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> 
     <!-- Global CSS -->
@@ -59,13 +58,13 @@
                 <div class="navbar-collapse collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active nav-item sr-only"><a class="scrollto" href="#promo">Home</a></li>
-                        <li class="nav-item"><a class="scrollto" href="#intro">Introduction</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#introduction">Introduction</a></li>
                         <li class="nav-item"><a class="scrollto" href="#design">Design</a></li>
-                        <li class="nav-item"><a class="scrollto" href="#docs">Implementation</a></li>
-                        <li class="nav-item"><a class="scrollto" href="#license">Results</a></li>                        
-                        <li class="nav-item"><a class="scrollto" href="#contact">Conclusion</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#implementation">Implementation</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#results">Results</a></li>                        
+                        <li class="nav-item"><a class="scrollto" href="#conclusion">Conclusion</a></li>
                         <li class="nav-item"><a class="scrollto" href="#team">Team</a></li>
-                        <li class="nav-item last"><a class="scrollto" href="#materials">Materials</a></li>
+                        <li class="nav-item last"><a class="scrollto" href="#materials">Additional Materials</a></li>
                     </ul><!--//nav-->
                 </div><!--//navabr-collapse-->
             </nav><!--//main-nav-->
@@ -81,169 +80,227 @@
                 <a class="btn btn-cta-primary" href="http://github.com/ugotnitined/fedora-slambot" target="_blank">Github</a>
             </div>
             <ul class="meta list-inline">
-                <li>Created by: Alex Chu, Jong Ahn, Nitin Sadras</li>
+              <li>Created by: <a href='http://alexpchu.com'>Alex Chu</a>, <a href='https://github.com/JonghyunAhn'>Jong Ahn</a>, <a href='https://github.com/ugotnitined'>Nitin Sadras</a></li>
             </ul><!--//meta-->
         </div><!--//container-->
     </section><!--//promo-->
     
     <!-- ******ABOUT****** --> 
-    <section id="intro" class="about section">
-        <div class="container">
-            <h2 class="title text-center">Introduction</h2>
-            <p class="intro text-center">SLAM is when you make a map and hit someone with it.</p>           
-        </div><!--//container-->
-    </section><!--//about-->
-    
-    <!-- ******FEATURES****** --> 
-    <section id="design" class="features section">
-        <div class="container text-center">
-            <h2 class="title">Design</h2>
-            We designed our project by talking about the nature of the universe and considering the possibility that tomatoes are, in fact, a sentient alien species.
-        </div><!--//container-->
-    </section><!--//features-->
-    
-    <!-- ******DOCS****** --> 
-    <section id="docs" class="docs section">
+    <section id="introduction" class="about section docs">
         <div class="container">
             <div class="docs-inner">
-            <h2 class="title text-center">Get Started</h2>            
+              <center>
+                <figure style='margin:2em;'>
+                  <img style='width:50%;' class="img-responsive" src="assets/images/robot/front.jpg"/>
+                  <figcaption>SLAMBot, the TETRIX Robot that runs our SLAM Algorithm.</figcaption>
+                </figure>
+              </center>
+            <h2 class="title text-center">Introduction</h2>            
             <div class="block">
-                <h3 class="sub-title text-center">HTML</h3>
-                <p><a href="http://prismjs.com/" target="_blank">PrismJS</a> is used as the syntax highlighter here.</p>
-                <p>Below are the details of the custom PrismJS build used in this template. You can <a href="http://prismjs.com/download.html" target="_blank">build your own version</a> via their website should you need to.</p>
-                <ul class="list-unstyled">
-                    <li><strong>Compression level:</strong> Minified</li>
-                    <li><strong>Theme:</strong> Okaidia</li>
-                    <li><strong>Languages:</strong> Markup, CSS, C-like, JavaScript, PHP and Python</li>
-                </ul>
-                <div class="code-block">
-                    <!--//Use Prismjs - http://prismjs.com/index.html#basic-usage -->
-                    <pre><code class="language-markup">
-    &ltp class="my-style"&gt
-      Hello World!
-    &lt/p&gt
-                     </code></pre>
-                </div><!--//code-block-->
+              <p>The objective of our project is to implement some SLAM (Simultaneous Localization and Mapping) algorithm and have it run on a mobile robot. As we drive the robot around, it will use its camera to locate a set of vision markers. The algorithm will localize these markers with respect to each other and with the robot, simultaneously estimating the map of the markers, as well as the robot's position in space.</p>
+              <p>This is an interesting problem because it solves the apparent circular problem of mapping and localization. To build a map of an area based on vision features, one must have the position of the robot. To find the position of the robot in space, one must have the map of the area. The two SLAM solutions we implemented for this project cope with this by modeling the uncertainty of the robot's position and the marker positions, and selecting the map with the greatest likelihood.</p>
+              <p>To make our solution work, we have to collect the data expected by SLAM, and feed it into the algorithm. The first problem we had to solve was to read the rotational and forward velocities of the robot from the gyroscope and encoders of the robot, to get a rough update on the position of the robot. The second problem we had to solve was to find a way to classify markers placed on the ground, and compute their position relative to the robot on the ground. The last problem we had to solve is to implement SLAM; given the velocities from the robot sensors and the marker classifications and positions from the vision node, compute the maximum likelihood estimation of the robot position and a map of the area.</p>
+              <p>SLAM has many applications in the modern world, and is actually an active research topic in robotics. Its applications include localization and planning for autonomous vehicles, and finer grained localization for mobile devices. On one end of the spectrum, a localization algorithm that can take advantage of previously unknown landmarks and geographic features can help autonomous vehicles build a local map of their surroundings (information not available from a GPS unit), and better navigate treacherous terrain. In fact, the <a href='http://en.wikipedia.org/wiki/Stanley_%28vehicle%29'>winner</a> of the 2005 DARPA Grand Challenge, an autonomous car built by a Stanford team, used SLAM as part of its navigation algorithm. Another application of SLAM would be autonomous exploration. Perhaps a simpler application of SLAM would be better localization for mobile devices. Most mobile devices perform localization using a GPS unit, which does not work indoors, and generates position readings with a variance of about 10 meters. With SLAM, it may be possible to use the mobile device's camera, gyroscope, and accelerometer to improve these readings, taking advantage of local landmarks and features to reduce the uncertainty of the GPS reading.</p>
             </div><!--//block-->
-            
-            <div class="block">
-                <h3 class="sub-title text-center">CSS</h3>
-                <p>Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.</p>
-                
-                <div class="code-block">
-                    <!--//Use Prismjs - http://prismjs.com/index.html#basic-usage -->
-                    <pre>
-    <code class="language-css">
-    /*   
-     * Template Name: devAid - Responsive Website Template for developers
-     * Version: 1.0
-     * Author: Xiaoying Riley at 3rd Wave Media
-     * Website: http://themes.3rdwavemedia.com/
-     * Twitter: @3rdwave_themes
-    */
-    body {
-      font-family: 'Lato', arial, sans-serif;
-      color: #444444;
-      font-size: 16px;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    </code></pre>
-                </div><!--//code-block-->
-            </div><!--//block-->
-            
-            <div class="block">
-                <h3 class="sub-title text-center">JavaScript</h3>
-                <p>Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit ligula eget dolor.</p>
-                <div class="code-block">
-                    <pre><code class="language-javascript">
-    if( awesome ){
-        console.log('This is Awesome');
-    }else{
-        $('body').addClass('give-me-awesome');
-    }
-                    </code></pre>
-                </div><!--//code-block-->
-            </div><!--//block-->   
-            <div class="block">
-                <h3 class="sub-title text-center">Full Documentation</h3>
-                <p>If your documentation is very long you can host the full docs page (including FAQ etc) on GitHub and provide a Call to Action button below to direct users there.</p>
-                <p class="text-center">
-                    <a class="btn btn-cta-primary" href="https://github.com/twbs/bootstrap" target="_blank">More on GitHub</a>
-                </p>
-            </div><!--//block-->
-            
             </div><!--//docs-inner-->         
         </div><!--//container-->
-    </section><!--//features-->
-    
-    <!-- ******LICENSE****** --> 
-    <section id="license" class="license section">
+    </section><!--//about-->
+
+    <section id="design" class="about section docs">
         <div class="container">
-            <div class="license-inner">
-            <h2 class="title text-center">License</h2>
-                <div class="info">
-                    <p>This Bootstrap theme is made by UX designer <a href="https://www.linkedin.com/in/xiaoying" target="_blank">Xiaoying Riley</a> at 3rd Wave Media for developers and is <strong>100% FREE</strong> under the <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons Attribution 3.0 License (CC BY 3.0)</a></p>
-                    <p><strong>[Tip for developers]:</strong> If your project is open source, you might want to put a <a href="https://www.paypal.com/us/cgi-bin/?cmd=_donate-intro-outside" target="_blank">PayPal "Donate" button</a> below so your users can express their gratitude. If your project is commercial, you can put a <a href="https://www.paypal.com/us/cgi-bin/webscr?cmd=_singleitem-intro-outside" target="_blank">PayPal "Buy Now" button</a> instead.</p>
-                </div><!--//info-->
-                <div class="cta-container">
-                    <div class="speech-bubble">                    
-                        <p class="intro">If you are feeling generous and want to show your support to Xiaoying, you can buy her a beer or coffee via the PayPal donate button below. :)</p>
-                        <div class="icon-holder  text-center"><i class="fa fa-smile-o"></i></div>
-                    </div><!--//speech-bubble-->
-                    <div class="btn-container  text-center">
-                        <!--//You need to generate your own PayPal button - https://www.paypal.com/us/cgi-bin/?cmd=_donate-intro-outside -->         
-                        <!--PayPal generated code starts-->
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                        <input type="hidden" name="cmd" value="_s-xclick">
-                        <input type="hidden" name="hosted_button_id" value="Y46LJNXGAVVWW">
-                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                        <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-                        </form>
-                        <!--//PayPal generated code ends-->                    
-                        
-                    </div><!--//btn-container-->
-                </div><!--//cta-container-->
-            </div><!--//license-inner-->
+            <div class="docs-inner">
+            <h2 class="title text-center">Design</h2>            
+            <div class="block">
+              <h3 class="sub-title text-center">Design Criteria</h3>
+              SLAMBot was designed with the following criteria in mind:
+              <ul>
+                <li>SLAMBot must build a map, with the markers positioned correctly.</li>
+                <li>The SLAM algorithm must be invariant to noise, and produce a reasonably good map, even if sensor readings are not perfect.</li>
+                <li>SLAMBot must have be able to self-correct; if the robot sees a marker that it does not expect based on its map, it must either change the map or its position in the map.</li>
+              </ul>
+              Given these design criteria, SLAMBot should be able to produce a reasonable estimation of the marker map, even with noisy sensor readings. As we drive the robot around, it should be able to estimate its position using its gyroscope, odometer, and any markers it sees along the way.
+              <h3 class="sub-title text-center">The Design</h3>
+              <p></p>
+              <h4 class="text-center">Hardware</h4>
+              <p>We opted to develop SLAM on the provided TETRIX car platform. We did this because SLAM requires a simple mobile robot as a testing platform. Since we wanted to focus our efforts in developing our vision and localization algorithms, we decided it would be best to pick one of these pre-built kits.</p>
+
+              <p>The Extended Kalman Filter and Particle Filter SLAM algorithms both require rotational and translational velocity inputs to estimate robot position. To provide these services, we originally intended to use a 3-axis gyroscope and accelerometer to measure rotational velocity and acceleration. We would then integrate over acceleration to get velocity. This did not end up working out very well, because error in acceleration would accumulate over time. Our final hardware solution used the encoders on the TETRIX car's motor controller as odometers, which gave us a more accurate reading on robot velocity.</p>
+              <center>
+                <figure style='margin:2em;'>
+                  <img style='width:50%;' class="img-responsive" src="assets/images/robot/persp.jpg"/>
+                  <figcaption>SLAMBot Hardware</figcaption>
+                </figure>
+              </center>
+
+
+              <p>To provide camera support for our vision node, which would detect markers near the robot and report them to the SLAM algorithm, we had to modify the robot. Since all the markers would be flat on the ground, we angled the camera down to increase our usable visual range. This came at a cost of our ability to see objects above the horizon, but since SLAM algorithm only cares about marker positions, we decided that this cost is secondary.</p> 
+              <center>
+                <figure style='margin:2em;'>
+                  <img style='width:50%;' class="img-responsive" src="assets/images/robot/side.jpg"/>
+                  <figcaption>SLAMBot Camera</figcaption>
+                </figure>
+              </center>
+
+              <h4 class="text-center">Vision</h4>
+              <p>We couldn't get AR-Tags to work, so we designed and implemented our own:</p>
+              <center>
+                <div style='width:30%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/markers/a.png"/>
+                    <figcaption>Original design for vision markers.</figcaption>
+                  </figure>
+                </div>
+                <div style='width:10%;display:inline-block;'>
+                </div>
+                <div style='width:30%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/markers/5.png"/>
+                    <figcaption>New design for vision markers. This one encodes a 5.</figcaption>
+                  </figure>
+                </div>
+              </center>
+              <p>Our original design for the AR-Tag consisted of four brightly colored corners, and a data pattern consisting of an alpha character. We would use homography to warp the marker to an orthographic projection, and perform normalized cross correlation with a set of library markers to get the final classification. This did not work well because we experienced alignment issues, and we did not get the desired classification accuracy. We considered various methods like contour detection and radial binning (like lab 5), but finally decided on changing the data pattern on the marker to 4 monochrome blocks, each representing a single bit. This improved our classification accuracy from about 50% to almost 100%.</p>
+              <h4 class="text-center">SLAM Algorithm</h4>
+              <p>Our first implementation of SLAM models the mapping and localization problem as an inference problem, and attempts to solve it using a Particle Filter. For simplicity, we make an independence assumption, estimating the position of each marker as if it were independent of the positions of all other markers. This kept our state space small, allowing us to greatly increase the number of particles we can use. We expected robustness to arise from simplicity. However, we ran into several problems with this model. First of all, the particle filter was very sensitive to noise in the sensor readings. Because of the independence assumption, the particle filter would not correct the entire map when a new marker reading becomes available. Instead, it will only relocate the affected marker, resulting in an inconsistent map. The particle filter also takes an excessive amount of time and observations to converge to a reasonable map, which would be impractical for real applications of the algorithm, such as automated exploration.</p>
+              <p>=========================TODO(Jong): explain EKF design.=========================</p>
+              <p></p>
+            </div><!--//block-->
+            </div><!--//docs-inner-->         
         </div><!--//container-->
-    </section><!--//how-->
+    </section><!--//about-->
+
+    <section id="implementation" class="about section docs">
+        <div class="container">
+            <div class="docs-inner">
+            <h2 class="title text-center">Implementation</h2>            
+            <div class="block">
+              As stated before, SLAMBot is built on the TETRIX + Raspberry Pi platform. We chose Python and <a href='http://ros.org'>ROS</a> as our software stack, and used it to offload all of our vision and SLAM algorithm computation from the Pi to our laptops for performance purposes. As such, our project is structured as a distributed model. The robot will serve the functions of its low-level hardware as a service over ROS, and the control computer will use this data to perform high level computations like vision and SLAM. The robot will provide its sensor and camera values, and listen for commands from the driver through it's control_sub node. The controller computer will use the sensor values and raw images to do marker detection and SLAM. The output of SLAM will inform a human driver, who will provide commands to the robot through control_pub. The architecture of our project is shown below:
+              <center>
+                <figure style='margin:2em;'>
+                  <img style='width:70%;' class="img-responsive" src="assets/images/flowchart.png"/>
+                  <figcaption>The structure of SLAMBot's codebase</figcaption>
+                </figure>
+              </center>
+              <h4 class="text-center">Hardware</h4>
+              ==== TODO(Nitin) write this ====
+              <center>
+                <div style='width:40%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/robot/gyro.jpg"/>
+                    <figcaption>3-axis gyro + accelerometer</figcaption>
+                  </figure>
+                </div>
+                <div style='width:10%;display:inline-block;'>
+                </div>
+                <div style='width:40%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/robot/encoder.jpg"/>
+                    <figcaption>Right motor encoder</figcaption>
+                  </figure>
+                </div>
+              </center>
+
+
+
+              <h4 class="text-center">Vision</h4>
+
+              <p>Our Vision pipeline is implemented using OpenCV and Numpy, with ROS as an interface to the rest of the project codebase. The vision markers consist of a binary data pattern in the center of a sheet, with four colored alignment squares. The Vision node reads image data from /throttled_camera_image, and outputs marker classifications and positions to /markers.</p>
+
+              <center>
+                <div style='width:20%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/vision/raw.png"/>
+                    <figcaption>Raw Image</figcaption>
+                  </figure>
+                </div>
+                <div style='width:20%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/vision/blobs.png"/>
+                    <figcaption>Blob Detection</figcaption>
+                  </figure>
+                </div>
+                <div style='width:20%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/vision/detect.png"/>
+                    <figcaption>Marker Detection</figcaption>
+                  </figure>
+                </div>
+                <div style='width:20%;display:inline-block;'>
+                  <figure>
+                    <img class="img-responsive" src="assets/images/vision/rectify.png"/>
+                    <figcaption>Rectified Marker</figcaption>
+                  </figure>
+                </div>
+              </center>
+
+              <p>The vision pipeline takes an input image and does HSV Filtering to find probable marker corners. It looks for patches of image that are sufficiently red, green, blue, or yellow, and uses OpenCV's morphologyEx functions to eliminate small patches. We then use OpenCV's findContours to detect blobs, and keep the blobs that are above a certain area threshold, performing some measure of non-maximum suppression. Now that we have a list of red, green, blue, and yellow blobs, we can look for markers. Using a homography computed at camera calibration, we now build a graph of potential successors for each blob. A successor for a red blob, for instance, would be a green blob at least 8.5 inches away. A successor for a green blob is a blue blob 11 inches away, and so on. We perform cycle detection on the graph. Any cycle of length four constitutes a marker. Now that an oriented set of four corners for each marker, we can do marker classification. We compute a homography matrix using the corners, and use <a href='http://blogs.mathworks.com/steve/2006/05/05/spatial-transformations-inverse-mapping/'>inverse warping</a> to rectify and extract the pattern of the marker. Now, we simply bin the marker into four quadrants, and output the classification. The above marker was classified as a 10, since its second and fourth bits are true.</p>
+
+              <h4 class="text-center">SLAM Algorithm</h4>
+              ======TODO(Jong): Write this======
+
+            </div><!--//block-->
+            </div><!--//docs-inner-->         
+        </div><!--//container-->
+    </section><!--//about-->
+
+ 
+    <section id="results" class="about section docs">
+        <div class="container">
+            <div class="docs-inner">
+            <h2 class="title text-center">Results</h2>            
+            <div class="block">
+            </div><!--//block-->
+            =======TODO(Nitin): Post video, add youtube embed, explain what's going on in all the windows====
+              ====TODO(Nitin): How well did your project work? What tasks did it perform?=====
+            </div><!--//docs-inner-->         
+        </div><!--//container-->
+    </section><!--//about-->
+ 
+    <section id="conclusion" class="about section docs">
+        <div class="container">
+            <div class="docs-inner">
+            <h2 class="title text-center">Conclusion</h2>            
+            <div class="block">
+            </div><!--//block-->
+            =====TODO(somebody): Discuss your results. How well did your finished solution meet your design criteria?====
+            =====TODO(somebody): Did you encounter any particular difficulties?====
+            =====TODO(somebody): Does your solution have any flaws or hacks? What improvements would you make if you had additional time?====
+            </div><!--//docs-inner-->         
+        </div><!--//container-->
+    </section><!--//about-->
+ 
+    <section id="team" class="about section docs">
+        <div class="container">
+            <div class="docs-inner">
+            <h2 class="title text-center">Meet the Team</h2>            
+            <div class="block">
+              <h4 class="text-center">Alexander Chu</h4>
+            =====TODO(Alex): Write Bio. Add photo.====
+              <h4 class="text-center">Jonghyun Ahn</h4>
+            =====TODO(Jong): Write Bio. Add photo.====
+              <h4 class="text-center">Nitin Sadras</h4>
+            =====TODO(Nitin): Write Bio. Add photo.====
+            </div><!--//block-->
+            </div><!--//docs-inner-->         
+        </div><!--//container-->
+    </section><!--//about-->
+ 
+    <section id="materials" class="about section docs">
+        <div class="container">
+            <div class="docs-inner">
+            <h2 class="title text-center">Additional Materials</h2>            
+            <div class="block">
+              =====TODO(somebody):Code, URDFs, and launch files you wrote=====
+              =====TODO(somebody):CAD models for any hardware you designed=====
+              =====TODO(somebody):Datasheets for components used in your solution=====
+              =====TODO(somebody):Any additional videos, images, or data from your finished solution=====
+            </div><!--//block-->
+            </div><!--//docs-inner-->         
+        </div><!--//container-->
+    </section><!--//about-->
+ 
     
-    <!-- ******CONTACT****** --> 
     <section id="contact" class="contact section has-pattern">
-        <div class="container">
-            <div class="contact-inner">
-                <h2 class="title  text-center">Contact</h2>
-                <p class="intro  text-center">I hope you find this Bootstrap template useful. <br />Feel free to get in touch if you have any questions or suggestions.</p>
-                <div class="author-message">                      
-                    <div class="profile">
-                        <img class="img-responsive" src="assets/images/profile.png" alt="" />
-                    </div><!--//profile-->
-                    <div class="speech-bubble">
-                        <h3 class="sub-title">Want to get more freebies in the future?</h3>
-                        <p>I tweet about #UX and #webdev related resources/content at <a href="https://twitter.com/3rdwave_themes" target="_blank">@3rdwave_themes</a> 
-                        <p>If you like what I do, you can follow me on twitter and I will keep you informed about my next free template there :)</p>
-                        <p><strong>[Tip for developers]:</strong> If you take on freelance work you can put a tailored message here about your availability to attract potential clients. Be creative and good luck!</p> 
-                        <div class="source">
-                            <span class="name"><a href="https://twitter.com/3rdwave_themes" target="_blank">Xiaoying Riley</a></span>
-                            <br />
-                            <span class="title">UX/UI Designer</span>
-                        </div><!--//source-->
-                    </div><!--//speech-bubble-->                        
-                </div><!--//author-message-->
-                <div class="clearfix"></div>
-                <div class="info text-center">
-                    <h4 class="sub-title">Get Connected</h4>
-                    <ul class="social-icons list-inline">
-                        <li><a href="https://twitter.com/3rdwave_themes" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="https://www.facebook.com/3rdwavethemes" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://www.linkedin.com/in/xiaoying"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="http://instagram.com/xyriley"><i class="fa fa-instagram"></i></a></li>  
-                        <li><a href="https://dribbble.com/Xiaoying"><i class="fa fa-dribbble"></i></a></li>   
-                        <li class="last"><a href="mailto: hello@3rdwavemedia.com"><i class="fa fa-envelope"></i></a></li>              
-                    </ul>
-                </div><!--//info-->
-            </div><!--//contact-inner-->
-        </div><!--//container-->
     </section><!--//contact-->  
       
     <!-- ******FOOTER****** --> 
