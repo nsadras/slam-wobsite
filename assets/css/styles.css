@@ -223,13 +223,14 @@ pre code {
   color: rgb(100,255,255);
 }
 .promo .meta li {
+  background: rgba(0,0,0,.5);
   margin-right: 15px;
 }
 .promo .meta a {
-  color: rgb(100,255,255);
+  color: rgb(50,255,255);
 }
 .promo .meta a:hover {
-  color: #074f66;
+  color: rgb(100,200,200);
 }
 .promo .social-media {
   background: #0c86ae;
