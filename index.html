@@ -89,14 +89,14 @@
     <section id="introduction" class="about section docs">
         <div class="container">
             <div class="docs-inner">
+            <div class="block">
+            <h2 class="title text-center">Introduction</h2>            
               <center>
                 <figure style='margin:2em;'>
                   <img style='width:50%;' class="img-responsive" src="assets/images/robot/front.jpg"/>
                   <figcaption>SLAMBot, the TETRIX Robot that runs our SLAM Algorithm.</figcaption>
                 </figure>
               </center>
-            <h2 class="title text-center">Introduction</h2>            
-            <div class="block">
               <p>The objective of our project is to implement some SLAM (Simultaneous Localization and Mapping) algorithm and have it run on a mobile robot. As we drive the robot around, it will use its camera to locate a set of vision markers. The algorithm will localize these markers with respect to each other and with the robot, simultaneously estimating the map of the markers, as well as the robot's position in space.</p>
               <p>This is an interesting problem because it solves the apparent circular problem of mapping and localization. To build a map of an area based on vision features, one must have the position of the robot. To find the position of the robot in space, one must have the map of the area. The two SLAM solutions we implemented for this project cope with this by modeling the uncertainty of the robot's position and the marker positions, and selecting the map with the greatest likelihood.</p>
               <p>To make our solution work, we have to collect the data expected by SLAM, and feed it into the algorithm. The first problem we had to solve was to read the rotational and forward velocities of the robot from the gyroscope and encoders of the robot, to get a rough update on the position of the robot. The second problem we had to solve was to find a way to classify markers placed on the ground, and compute their position relative to the robot on the ground. The last problem we had to solve is to implement SLAM; given the velocities from the robot sensors and the marker classifications and positions from the vision node, compute the maximum likelihood estimation of the robot position and a map of the area.</p>
@@ -270,10 +270,23 @@
             <div class="docs-inner">
             <h2 class="title text-center">Conclusion</h2>            
             <div class="block">
+
+              <center>
+                <figure style='margin:2em;'>
+                  <img style='width:50%;' class="img-responsive" src="assets/images/robot.jpg"/>
+                  <figcaption>SLAMBot, ready to map!</figcaption>
+                </figure>
+              </center>
+
+            <p>By the end of our project, our robot produced a map of all the markers we placed fairly reliably, with small amounts of noise that it was able to compensate for. When we picked up the robot and relocated it such that its belief state is inconsistent with its observations, the EKF algorithm would correct the robot's position. While our solution is sensitive to large and excessive amounts of noise (several seconds of gyroscope readings lost to network lag, for instance), it satisfied our design criteria for the most part.</p>
+
+            <p>Many of the difficulties we encountered had to do with the computational limitations of the Rapsberry Pi as a platform, as well as network lag. As stated before, we cannot do computationally intensive operations like vision or the EKF update on the pi, so we had to offload all these computations to a controller laptop. This in itself presented a host of challenges, one of which was network lag. Given a limited amount of bandwidth we could push through the Pi's wifi card, for instance, we would often get delays in camera and sensor readings, resulting in spikes of noise that would confuse our EKF module and cause preturbations in the map. We partially resolved these problems by adding a timestamp to all our sensor readings and marker detections, so that marker observations and sensor readings are at least consistent with each other. Nevertheless, this solution is not perfect, as some sensor readings would never get to the laptop, resulting in map corruption in times of high network load.</p>
+
+            <p>Given more time, we would like to attempt to implement even more sophisticated SLAM algorithms. One of the algorithms we researched, <a href='http://robots.stanford.edu/papers/montemerlo.fastslam-tr.pdf'>FASTSlam</a>, combines the Particle Filter and EKF algorithms, modeling each particle as an entire map, and using the EKF Update to incorporate new observations into the existing belief state. We believe that this algorithm would give better results than just EKF, and be more invariant to noise.</p>
+
+            <p>While doing this project, we learned how hard practical robotics can be. An algorithm that, for instance, works in simulation with perfect, gaussian noise assumpions may not work or even converge when faced with real data and network constraints. We also learned about the versitility of the Kalman Filter and the EKF as an estimator for state with noisy, incomplete observations. Overall, developing this system has been a highly rewarding experience!</p>
+
             </div><!--//block-->
-            =====TODO(somebody): Discuss your results. How well did your finished solution meet your design criteria?====
-            =====TODO(somebody): Did you encounter any particular difficulties?====
-            =====TODO(somebody): Does your solution have any flaws or hacks? What improvements would you make if you had additional time?====
             </div><!--//docs-inner-->         
         </div><!--//container-->
     </section><!--//about-->
@@ -283,12 +296,21 @@
             <div class="docs-inner">
             <h2 class="title text-center">Meet the Team</h2>            
             <div class="block">
+              <img style='float:left; width:25%; margin:5%;' src='assets/images/alex.jpg'></img>
               <h4 class="text-center">Alexander Chu</h4>
-            =====TODO(Alex): Write Bio. Add photo.====
+              <p>Alex is a full-stack developer studying his third year of Electrical Engineering and Computer Science at UC Berkeley. His interests include machine learning, web development, signal processing, speaking in the third person to people on the internet, and recreational mathematics. Alex got involved in this class because he had a lot of fun in his high school FIRST Robotics team, and wanted to further explore the field of robotics.</p>
+              <p>Alex designed and built the robot vision node in this project. He also built the Particle Filter implementation of SLAM.</p>
+              <div style='clear:both;'></div>
+              <img style='float:right; width:25%; margin:5%;' src='assets/images/jong.jpg'></img>
               <h4 class="text-center">Jonghyun Ahn</h4>
-            =====TODO(Jong): Write Bio. Add photo.====
+              <p>=====TODO(Jong): Write Bio. Add photo (assets/images/jong.jpg).====</p>
+              <p>Jong is the mastermind behind our implementation of the EKF SLAM implementation, and was responsible for fine-tuning the parameters so it produced reasonable results.</p>
+              <div style='clear:both;'></div>
+              <img style='float:left; width:25%; margin:5%;' src='assets/images/nitin.jpg'></img>
               <h4 class="text-center">Nitin Sadras</h4>
-            =====TODO(Nitin): Write Bio. Add photo.====
+              <p>=====TODO(Nitin): Write Bio. Add photo (assets/images/nitin.jpg).====</p>
+              <p>Nitin was responsible for the hardware and robot control code for the robot.</p>
+              <div style='clear:both;'></div>
             </div><!--//block-->
             </div><!--//docs-inner-->         
         </div><!--//container-->
@@ -299,10 +321,12 @@
             <div class="docs-inner">
             <h2 class="title text-center">Additional Materials</h2>            
             <div class="block">
-              =====TODO(somebody):Code, URDFs, and launch files you wrote=====
-              =====TODO(somebody):CAD models for any hardware you designed=====
-              =====TODO(somebody):Datasheets for components used in your solution=====
-              =====TODO(somebody):Any additional videos, images, or data from your finished solution=====
+              <p>All of our code can be found on our <a href='http://github.com/ugotnitined/fedora-slambot'>github repository</a>.
+              The main file for the robot is <b>robot.launch</b> under slam_sensors.
+              To run our vision code, run <b>vision_ros.py</b> under directory vision.
+              The EKF SLAM algorithm can be launched with <b>slam.py</b> and visualized with <b>gui.py</b> under directory slam.
+              The Particle Filter SLAM algorithm can be launched with <b>particle_filter_ros.py</b> under directory particlefilter.</p>
+              =====TODO(Nitin):Datasheets for components used in your solution (Gyro!)=====
             </div><!--//block-->
             </div><!--//docs-inner-->         
         </div><!--//container-->
