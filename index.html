@@ -181,7 +181,7 @@
                   <figcaption>The structure of SLAMBot's codebase</figcaption>
                 </figure>
               </center>
-              <h4 class="text-center">Hardware</h4>
+              <h3 class="text-center">Hardware</h3>
               <p>Our SLAM and vision algorithms rely on gyroscope, motor encoder, and camera data from the robot in order to estimate it's position and velocity.  We used the Raspberry Pi's i2c bus in order to communicate with the gyroscope and Grizzly Bear motor controllers, and used the attached Pi Camera Module to acquire images.  The high resoluton camera images, along with the gyroscope and encoder values which are published at 10 Hz, constitute a significant amount of data, and therefore take up a good deal of bandwidth, a limited resource.  When we first implemented communication between the robot and the control computer, we experienced image lag of up to 15 seconds - a combination of network lag and the Pi's image processing time.  This kind of latency would be fatal to SLAM, since the data received from the robot would be completely out of sync with the robot's actual position.  We attempted to downsample the camera images before sending them over the network, but this significantly reduced the range at which we could accurately classify markers - in fact, it appeared as though our range of view was directly proportional to how much we downsampled the image.  In order to get around this, we switched to a third party ROS package, <a href="https://github.com/fpasteau/raspicam_node">raspicam_node</a>, that takes advantage of raspberry pi firmware in order to accelerate image capture.  Additionally, we realized that SLAM worked just fine with just 2-4 camera frames per second, provided that there was minimal lag.  This, along with the raspicam_node, alowed us to acheive an average latency of less than two seconds.</p>
               <center>
                 <div style='width:40%;display:inline-block;'>
@@ -202,7 +202,7 @@
 
 
 
-              <h4 class="text-center">Vision</h4>
+              <h3 class="text-center">Vision</h3>
 
               <p>Our Vision pipeline is implemented using OpenCV and Numpy, with ROS as an interface to the rest of the project codebase. The vision markers consist of a binary data pattern in the center of a sheet, with four colored alignment squares. The Vision node reads image data from /throttled_camera_image, and outputs marker classifications and positions to /markers.</p>
 
@@ -235,7 +235,7 @@
 
               <p>The vision pipeline takes an input image and does HSV Filtering to find probable marker corners. It looks for patches of image that are sufficiently red, green, blue, or yellow, and uses OpenCV's morphologyEx functions to eliminate small patches. We then use OpenCV's findContours to detect blobs, and keep the blobs that are above a certain area threshold, performing some measure of non-maximum suppression. Now that we have a list of red, green, blue, and yellow blobs, we can look for markers. Using a homography computed at camera calibration, we now build a graph of potential successors for each blob. A successor for a red blob, for instance, would be a green blob at least 8.5 inches away. A successor for a green blob is a blue blob 11 inches away, and so on. We perform cycle detection on the graph. Any cycle of length four constitutes a marker. Now that an oriented set of four corners for each marker, we can do marker classification. We compute a homography matrix using the corners, and use <a href='http://blogs.mathworks.com/steve/2006/05/05/spatial-transformations-inverse-mapping/'>inverse warping</a> to rectify and extract the pattern of the marker. Now, we simply bin the marker into four quadrants, and output the classification. The above marker was classified as a 10, since its second and fourth bits are true.</p>
 
-              <h4 class="text-center">SLAM Algorithm</h4>
+              <h3 class="text-center">SLAM Algorithm</h3>
               ======TODO(Jong): Write this======
 
             </div><!--//block-->
@@ -297,17 +297,17 @@
             <h2 class="title text-center">Meet the Team</h2>            
             <div class="block">
               <img style='float:left; width:25%; margin:5%;' src='assets/images/alex.jpg'></img>
-              <h4 class="text-center">Alexander Chu</h4>
+              <h3 class="text-center">Alexander Chu</h3>
               <p>Alex is a third year Electrical Engineering and Computer Science student at UC Berkeley. His interests include machine learning, web development, signal processing, speaking in the third person to people on the internet, and recreational mathematics. Alex got involved in this class because he had a lot of fun in his high school FIRST Robotics team, and wanted to further explore the field of robotics.</p>
               <p>Alex designed and built the robot vision node in this project. He also built the Particle Filter implementation of SLAM.</p>
               <div style='clear:both;'></div>
               <img style='float:right; width:25%; margin:5%;' src='assets/images/jong.jpg'></img>
-              <h4 class="text-center">Jonghyun Ahn</h4>
+              <h3 class="text-center">Jonghyun Ahn</h3>
               <p>=====TODO(Jong): Write Bio. Add photo (assets/images/jong.jpg).====</p>
               <p>Jong is the mastermind behind our implementation of the EKF SLAM algorithm, and was responsible for fine-tuning the parameters so it produced reasonable results.</p>
               <div style='clear:both;'></div>
               <img style='float:left; width:25%; margin:5%;' src='assets/images/nitin.jpg'></img>
-              <h4 class="text-center">Nitin Sadras</h4>
+              <h3 class="text-center">Nitin Sadras</h3>
               <p>Nitin is a third-year EECS major at Berkeley.  His academic interests include computational imaging, control systems, and signal processing in general.  He also enjoys making music visualizers and singing in his spare time.  He took this class because he was interested in real-life applications of linear algebra.</p>
               <p>Nitin was responsible for the hardware and robot control code for the robot.</p>
               <div style='clear:both;'></div>
